@@ -5,33 +5,40 @@ library(datasets)
 data("quakes")
 df<- quakes
 
-# Define server logic for random distribution application
-shinyServer(function(input, output) {
+# Define server logic for the application
 
+shinyServer(function(input, output) {
+        # Render map output
         output$map <- renderLeaflet({
-                        magnitude<-input$mag
-                        df<-filter(df, mag == magnitude)
+                # Get input magnitude value
+                magnitude<-input$mag
+                # Filter by selected magnitude
+                df<-filter(df, mag == magnitude)
                         
-                     map<- df %>%
-                        leaflet() %>%
-                        addTiles() %>%
-                        addCircles(weight = 1, radius = df$depth*100)
+        map<- df %>%
+        leaflet() %>%
+        addTiles() %>%## Add map layer
+        addCircles(weight = 1, radius = df$depth*100)## Add markers
                      
 
                      
         })
-        
-        output$summary <- renderPrint({
+                # Render summary output
+                output$summary <- renderPrint({
+                # Get input magnitude value
                 magnitude<-input$mag
+                # Filter by selected magnitude
                 table<-filter(df, mag == magnitude)
                 summary(table[,3])
         })
         
         
-        
+        # Render table output
         output$table <- renderTable({
-                magnitude<-input$mag
-                table<-filter(df[,5:3], mag == magnitude)
+                # Get input magnitude value
+                magnitude<-input$mag 
+                # Filter by selected magnitude
+                table<-filter(df[,5:3], mag == magnitude) # Filter by selected magnitude
         })
        
         

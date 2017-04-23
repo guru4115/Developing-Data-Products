@@ -1,15 +1,14 @@
 library(shiny)
 library(leaflet)
 
-# Define UI for random distribution application 
+# Define UI for application 
 shinyUI(pageWithSidebar(
         
         # Application title
         headerPanel("Locations of Earthquakes off Fiji"),
         
-        # Sidebar with controls to select the random distribution type
-        # and number of observations to generate. Note the use of the br()
-        # element to introduce extra vertical spacing
+        # Sidebar with slider controls to select the magnitude of the quake
+
         sidebarPanel(
                 h4("Select magnitude "),
                   sliderInput("mag", 
@@ -23,7 +22,7 @@ shinyUI(pageWithSidebar(
         ),
         
         # Show a tabset that includes a plot, summary, and table view
-        # of the generated distribution
+        # of the generated map, summary and table
         mainPanel(
                 tabsetPanel(
                         tabPanel("Map", leafletOutput("map")), 
